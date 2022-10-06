@@ -71,4 +71,9 @@ public class UserRestController {
         return "user/login";
     }
 
+    @GetMapping("/map")
+    public String map() {
+        return "user/map";
+    }
+
 }
