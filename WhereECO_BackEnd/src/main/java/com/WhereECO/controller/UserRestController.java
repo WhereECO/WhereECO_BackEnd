@@ -13,17 +13,17 @@ import com.WhereECO.mapper.UserMapper;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@Controller
+@RestController
 @RequestMapping("/user")
 public class UserRestController {
     @Autowired
     UserMapper userMapper;
 
     @GetMapping("/list")
-    public String list(Model model) {
+    public List<User> list(Model model) {
         List<User> users = userMapper.findAll();
         model.addAttribute("user", users);
-        return "user/list";
+        return users;
     }
 
     @GetMapping("join")
@@ -70,10 +70,4 @@ public class UserRestController {
     public String login() {
         return "user/login";
     }
-
-    @GetMapping("/map")
-    public String map() {
-        return "user/map";
-    }
-
 }

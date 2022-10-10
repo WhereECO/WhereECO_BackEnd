@@ -39,7 +39,7 @@
 		<hr/> 
 		<div>
 			<button type="submit" class="btn" onclick="location.href='map'">로 그 인</button>
-			<button type="button" onclick="location.href='edit1'">회 원 가 입</button>
+			<button type="button" onclick="location.href='join'">회 원 가 입</button>
 			<c:if test="${ user.id > 0 }">
 			<a href="delete?id=${ user.id }" class="btn" data-confirm-delete>삭제</a> 
 			</c:if> <a href="list" class="btn">목록으로</a>
