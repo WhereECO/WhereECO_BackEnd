@@ -16,7 +16,7 @@ public class AddressRestController {
     @GetMapping("addresslist")
     public String list(Model model) {
         List<Address> addressList = addressMapper.findAll();
-        model.addAttribute("addresses", addressList);
+        model.addAttribute("address", addressList);
         return "address/addresslist";
     }
 
