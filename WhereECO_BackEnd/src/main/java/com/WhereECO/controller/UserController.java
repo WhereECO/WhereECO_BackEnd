@@ -12,18 +12,17 @@ import com.WhereECO.dto.User;
 import com.WhereECO.mapper.UserMapper;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-@RestController
+@Controller
 @RequestMapping("/user")
-public class UserRestController {
-    @Autowired
-    UserMapper userMapper;
+
+public class UserController {
+    @Autowired UserMapper userMapper;
 
     @GetMapping("/list")
-    public List<User> list(Model model) {
+    public String list(Model model) {
         List<User> users = userMapper.findAll();
         model.addAttribute("user", users);
-        return users;
+        return "user/list";
     }
 
     @GetMapping("join")
@@ -61,7 +60,7 @@ public class UserRestController {
                 out.flush();
             }
         } else {
-            out.println("<script>alert('아이디 또는 비밀번호가 일치하지 않습니다. 회원가입을 진행해주세요.'); location.href='/user/edit1';</script>");
+            out.println("<script>alert('아이디 또는 비밀번호가 일치하지 않습니다. 회원가입을 진행해주세요.'); location.href='/user/join';</script>");
             out.flush();
         }
     }
@@ -69,5 +68,10 @@ public class UserRestController {
     @GetMapping("/login")
     public String login() {
         return "user/login";
+    }
+
+    @GetMapping("/map")
+    public String map() {
+        return "user/map";
     }
 }

@@ -3,14 +3,17 @@ package com.WhereECO.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.WhereECO.dto.Address;
 import com.WhereECO.mapper.AddressMapper;
 
-@RestController
+@Controller
 @RequestMapping("/address")
-public class AddressRestController {
+public class AddressController {
+
+    // todo 생성자 주입으로 변경. 순환참조 막아지는지 실험
     @Autowired AddressMapper addressMapper;
 
     @GetMapping("addresslist")
