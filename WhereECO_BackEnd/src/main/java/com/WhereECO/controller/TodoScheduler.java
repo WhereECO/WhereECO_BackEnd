@@ -10,7 +10,7 @@ public class TodoScheduler {
     @Autowired
     TodoMapper todoMapper;
 
-    @Scheduled(fixedDelay = 5000)	// 매일 00시 정각
+    @Scheduled(fixedDelay = 5000)	// 5초마다
 //    @Scheduled(cron = "0 0 0 * * ?")    // 매일 00시 정각
     public void todoTask() {
         todoMapper.update();
