@@ -22,7 +22,6 @@ public interface AddressMapper {
     Address findByLocationInfo(String placeName);
 
     // 모두 가져오기
-    @Select("SELECT * from map")
+    @Select("SELECT * from address")
     List<Address> findAll();
-
 }
