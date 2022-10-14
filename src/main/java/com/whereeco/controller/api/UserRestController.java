@@ -1,5 +1,6 @@
 package com.whereeco.controller.api;
 
+import com.whereeco.controller.api.dto.UserJoinDto;
 import com.whereeco.domain.user.entity.User;
 import com.whereeco.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -23,11 +24,16 @@ public class UserRestController {
     }
 
     @PostMapping("join")
-    public ResponseEntity<String> create(@RequestBody User user) {
+    public ResponseEntity<String> create(@RequestBody UserJoinDto userJoinDto) {
 
-        String securePassword = passwordEncoder.encode(user.getPwd());
-        user.setPwd(securePassword);
+        if( !userJoinDto.getPwd().equals(userJoinDto.getCheckPwd())){
+            return ResponseEntity.ok("Join Failed");
+        }
+
+        String securePassword = passwordEncoder.encode(userJoinDto.getPwd());
+        User user = new User(userJoinDto.getUserId(), securePassword, userJoinDto.getName());
         userService.save(user);
+
         return ResponseEntity.ok("join OK");
     }
 
@@ -44,10 +50,4 @@ public class UserRestController {
 
         // Todo JWT 활용 로그인  유지 기능 추가
     }
-
-
-
-
-
-
 }
