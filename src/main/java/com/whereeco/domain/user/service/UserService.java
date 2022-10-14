@@ -1,5 +1,6 @@
 package com.whereeco.domain.user.service;
 
+import com.whereeco.controller.api.dto.TodoDto;
 import com.whereeco.domain.user.entity.User;
 import com.whereeco.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -35,5 +36,10 @@ public class UserService {
     @Transactional
     public void deleteById(Long id) {
         userRepository.deleteById(id);
+    }
+
+    public TodoDto findTodo(String userId) {
+        User user = userRepository.findTodo(userId);
+        return new TodoDto(user.isTodo1(), user.isTodo2(), user.isTodo3());
     }
 }
