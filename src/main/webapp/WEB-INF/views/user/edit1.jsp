@@ -1,50 +1,43 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html> 
-<html> 
-<head> 
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
-	<link rel="stylesheet" type="text/css" href="/common.css" /> 
-	<style> 
-		form { width: 600px; margin: auto; 
-			box-shadow: 0 0 4px lightgray, 2px 2px 4px gray; overflow: auto; } 
-		div.title { font-size: 20pt; padding: 10px; background-color: #eee; } 
-		table { margin: 20px; } 
-		td { min-width: 100; padding: 5px; } 
-		td:nth-child(1) { text-align: right; }
-		button { margin: 5px 0 20px 20px; }
-	</style> 
-</head> 
-<body> 
-	<div class="container"> 
+<!DOCTYPE html>
+<html>
+<head>
+	<title>WhereEco</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" type="text/css" href="/css/test.css" />
+</head>
+<body>
+<nav class="menu">
+	<h3>회 원 가 입</h3>
+</nav>
+<div class="tablecenter">
 	<form method="post" action="join">
-		<div class="title">user 정보</div> 
-			<table> 
-				<tr>
-					<td>id</td> 
-					<td><input type="text" value="${ user.id }" readonly disabled /></td> 
-				</tr> 
-				<tr> 
-					<td>user id</td> 
-					<td><input type="text" name="userId" value="${ user.userId }" /></td>
-				</tr> 
-				<tr> 
-					<td>pwd</td> 
-					<td><input type="password" name="pwd" value="${ user.pwd }" /></td>
-				</tr>
-				<tr> 
-					<td>이름</td> 
-					<td><input type="text" name="name" value="${ user.name }" /></td>
-				</tr>
-			</table>
-		<button type="submit" class="btn">저장</button>
-		
-		<c:if test="${ not empty message }"> 
-			<div class="message"> 
-				${ message } 
-			</div> 
+		<table>
+			<tr>
+				<td><input class="box1" type="text" placeholder="이름" name="name" value="${ userJoinDto.name }" /></td>
+			</tr>
+			<tr>
+				<td><input class="box" type="text" placeholder="아이디"  name="userId" value="${ userJoinDto.userId }" /></td>
+			</tr>
+			<tr>
+				<td><input class="box" type="password" placeholder="비밀번호" name="pwd1" value="${ userJoinDto.pwd1 }" /></td>
+			</tr>
+			<tr>
+				<td><input class="box4" type="password" placeholder="비밀번호 확인" name="pwd2" value="${ userJoinDto.pwd2 }" /></td>
+			</tr>
+		</table>
+		<button type="button" class="btn" onclick="location.href='login'">돌 아 가 기</button>
+		<button type="submit" class="btn" >저 장 하 기</button>
+		<c:if test="${ not empty message }">
+			<div class="message">
+					${ message }
+			</div>
 		</c:if>
-		</form>
-	</div> 
-</body> 
+	</form>
+</div>
+</body>
+</html>
+</div>
+</body>
 </html>

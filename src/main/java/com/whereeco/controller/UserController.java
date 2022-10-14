@@ -1,5 +1,6 @@
 package com.whereeco.controller;
 
+import com.whereeco.controller.dto.UserJoinDto;
 import com.whereeco.domain.user.entity.User;
 import com.whereeco.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,15 +37,26 @@ public class UserController {
 
     @GetMapping("join")
     public String create(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("userJoinDto", new UserJoinDto());
         return "user/edit1";
     }
 
     @PostMapping("join")
-    public String create(Model model, User user) {
-        String securePassword = passwordEncoder.encode(user.getPwd());
-        user.setPwd(securePassword);
+    public String create(HttpServletResponse response, UserJoinDto userJoinDto, Model model) throws IOException {
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+
+        if( !userJoinDto.getPwd1().equals(userJoinDto.getPwd2())){
+            out.println("<script> alert('비밀번호 확인 불일치'); </script>");
+            out.flush();
+            return "user/edit1";
+        }
+
+        String securePassword = passwordEncoder.encode(userJoinDto.getPwd1());
+        User user = new User(userJoinDto.getUserId(), securePassword, userJoinDto.getName());
         userService.save(user);
+        out.println("<script>alert('회원가입 성공, 로그인하세요');</script>");
+        out.flush();
         return "redirect:login";
     }
 

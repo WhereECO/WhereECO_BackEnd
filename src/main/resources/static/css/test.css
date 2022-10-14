@@ -1,0 +1,96 @@
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+body {
+    background-color: #ABD09A;
+    text-align: center;
+}
+.menu {
+    height: 80px;
+    background: #FFF7DA;
+    color: #554C2B;
+    text-align: center;
+}
+h3 {
+    padding: 25px; /*상단바 제목 내리기*/
+    font-size: 26px;
+}
+.tablecenter {
+    display: flex;
+    justify-content: center;
+}
+.box1 {
+    margin-top: 35px;
+    width: 400px;
+    height: 45px;
+    border: none;
+    border-radius: 7px;
+    font-size: 15px;
+}
+.box {
+    margin-top: 20px;
+    width: 400px;
+    height: 45px;
+    border: none;
+    border-radius: 7px;
+    font-size: 15px;
+}
+.box4 {
+    margin-top: 20px;
+    margin-bottom: 80px;
+    width: 400px;
+    height: 45px;
+    border: none;
+    border-radius: 7px;
+    font-size: 15px;
+}
+.box1:focus {
+    border: 3px solid #A09672;
+    outline: none;
+}
+.box:focus {
+    border: 3px solid #A09672;
+    outline: none;
+}
+.box4:focus {
+    border: 3px solid #A09672;
+    outline: none;
+}
+.ok {
+    margin-bottom: 60px; /*버튼 위치 조정*/
+    margin-left: 10px;
+    padding: 10px; /*버튼 크기 조정*/
+    color: white;
+    background-color: #A09672;
+    border: none;
+    transition: 400ms ease all
+}
+table input {
+    border-radius: 10px;
+}
+.ok:hover {
+    background-color: #FFF7DA;
+    color: #554C2B;
+}
+button {
+    text-decoration: none;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 180px;
+    height: 45px;
+    color: #554C2B;
+    background-color: #FFF7DA;
+    border: none;
+    border-radius: 10px;
+    font-size: 13px;
+}
+button:hover {
+    text-decoration: none;
+    border: 3px solid #A09672;
+}
+a:visited { /*다른 페이지 방문해도 글자색 그대로*/
+    text-decoration: none;
+    color: #554C2B;
+}
