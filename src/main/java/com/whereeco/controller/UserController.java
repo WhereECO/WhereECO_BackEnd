@@ -58,7 +58,7 @@ public class UserController {
     }
 
     @PostMapping("join")
-    public void create(HttpServletResponse response, @Validated UserJoinDto userJoinDto,
+    public void create(HttpServletResponse response, @Valid UserJoinDto userJoinDto,
                        BindingResult bindingResult) throws IOException {
 
         response.setContentType("text/html; charset=UTF-8");
@@ -84,7 +84,7 @@ public class UserController {
 
     @PostMapping("/login")
     public void login(HttpServletResponse response, HttpSession session,
-                      LoginDto loginDto, BindingResult bindingResult) throws Exception {
+                      @Valid LoginDto loginDto, BindingResult bindingResult) throws Exception {
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
 
