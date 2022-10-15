@@ -110,7 +110,7 @@
         <!--logo를 클릭하면 map page로 이동-->
         <h1 class="logo">Where ECO</h1>
         </a>
-        <img src="<c:url value="/images/logout.png"/>">
+        <a href="logout"><img src="<c:url value="/images/logout.png"/>"></a>
     </div>
     <div class="nextButton">
         <a class="js-mapA"><img src="<c:url value="/images/left.png"/>"></a>

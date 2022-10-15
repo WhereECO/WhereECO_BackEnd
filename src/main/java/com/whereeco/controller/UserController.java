@@ -128,5 +128,11 @@ public class UserController {
         out.flush();
         // return "redirect:map"; // sendRedirect() 보낼 수 없음
     }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request){
+        request.getSession().invalidate();
+        return "redirect:login";
+    }
 }
 
