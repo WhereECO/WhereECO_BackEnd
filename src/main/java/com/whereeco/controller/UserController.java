@@ -69,8 +69,8 @@ public class UserController {
 
         if (user != null) {
             if (passwordEncoder.matches(pwd, user.getPwd())) {
+                session.setMaxInactiveInterval(3000);
                 session.setAttribute("userId", user.getUserId());
-                session.setAttribute("name", user.getName());
 
                 out.println("<script>alert('login 성공'); location.href='/user/map';</script>");
                 out.flush();

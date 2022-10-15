@@ -16,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
@@ -30,6 +29,7 @@ public class UserRestController {
     private final UserService userService;
     private final LoginService loginService;
     private final TokenProvider tokenProvider;
+
     @GetMapping
     public ResponseEntity<List<User>> users(){
         List<User> users = userService.findAll();
@@ -60,42 +60,14 @@ public class UserRestController {
 
     @GetMapping("/todo")
     public ResponseEntity<TodoDto> getTodo(HttpServletRequest request){
-        //  1. authorization 헤더가 있는지 체크
-        String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-        if (!StringUtils.hasText(authorizationHeader)){
-            throw new RuntimeException("authorization 헤더 아님");
-        }
 
-        //  2. authorization Header의 TokenType Bearer 체크
-        String[] authorizations = authorizationHeader.split(" ");
-        if( authorizations.length < 2 || ( !GrantType.BEARER.getType().equals(authorizations[0]))){
-            throw new RuntimeException("BEARER 토큰 아님");
-        }
+        //  요청 헤더에서 토큰부분만을 추출 (BEARER header,payload,signature
+        String token = request.getHeader(HttpHeaders.AUTHORIZATION).split(" ")[1];
 
-        //  3. 토큰 검증
-        String token = authorizations[1];   // token 변수는 액세스 토큰의 몸통 부분.
-        if( !tokenProvider.validateToken(token)){
-            throw new RuntimeException("토큰 값 오류");
-        }
+        // userId 추출
+        String userId = tokenProvider.getTokenClaims(token).getAudience();
 
-        //  4. 토큰 타입 검증. ACCESS or REFRESH
-        String tokenType = tokenProvider.getTokenType(token);
-        if( !TokenType.ACCESS.name().equals(tokenType)){
-            throw new RuntimeException("토큰타입 ACCESS 아님");
-        }
-
-        //  5. 액세스 토큰 만료 시작 검증
-        // 일단 isTokenExpired() 인자로 넣을 토큰만료일 Date 객체를 가져옴
-        Claims tokenClaims = tokenProvider.getTokenClaims(token);
-        Date expiration = tokenClaims.getExpiration();
-
-        if (tokenProvider.isTokenExpired(expiration)) {
-            throw new RuntimeException("토큰 만료됨");
-        }
-
-        System.out.println(tokenClaims.getAudience());
-
-        TodoDto todo = userService.findTodo(tokenClaims.getAudience());
+        TodoDto todo = userService.findTodo(userId);
 
         return ResponseEntity.ok(todo);
     }
