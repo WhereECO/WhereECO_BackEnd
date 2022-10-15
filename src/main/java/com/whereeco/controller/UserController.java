@@ -1,5 +1,6 @@
 package com.whereeco.controller;
 
+import com.whereeco.controller.dto.TodoDto;
 import com.whereeco.controller.dto.UserJoinDto;
 import com.whereeco.domain.user.entity.User;
 import com.whereeco.domain.user.service.UserService;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -109,13 +111,22 @@ public class UserController {
         return "user/map";
     }
 
+    @Transactional
     @PostMapping ("/map")
-    public void map(@RequestParam(name = "todo1") String[] todo1 , HttpServletResponse response) throws IOException {
+    public void map(TodoDto todoDto, HttpServletRequest request,HttpServletResponse response) throws IOException {
+        // 세션 정보와 일치하는 유저를 가져옴
+        String userId = (String) request.getSession().getAttribute("userId");
+
+        // 유저를 Persistence Context에 올림
+        userService.updateTodoByUserId(userId, todoDto);
+
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
-        out.println("<script>alert('" + todo1 + "');" + "</script>");
-        out.flush();
 
-        System.out.println(todo1);
+
+        out.println("<script>alert('저장 완료'); location.href='/user/map';</script>");
+        out.flush();
+        // return "redirect:map"; // sendRedirect() 보낼 수 없음
     }
 }
+

@@ -42,4 +42,8 @@ public class UserService {
         User user = userRepository.findTodo(userId);
         return new TodoDto(user.isTodo1(), user.isTodo2(), user.isTodo3());
     }
+
+    public void updateTodoByUserId(String userId, com.whereeco.controller.dto.TodoDto todoDto) {
+        userRepository.updateTodoByUserId(userId, todoDto);
+    }
 }

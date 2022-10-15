@@ -85,11 +85,25 @@
             margin-left: auto;
             margin-bottom: auto;
         }
-
+        .todook {
+            margin-bottom: 60px; /*버튼 위치 조정*/
+            margin-left: 10px;
+            margin-top: 20px;
+            padding: 10px; /*버튼 크기 조정*/
+            color: white;
+            background-color: #A09672;
+            transition: 400ms ease all;
+            border-color: #A09672;
+            border-radius: 7px;
+        }
+        .todook:hover {
+            background-color: #FFF7DA;
+            border-color: #FFF7DA;
+            color: #554C2B;
+        }
     </style>
 </head>
 <body>
-
 <div class="tool">
     <!-- 네브바랑 넘어가는 나뭇잎 이미지는 고정-->
     <div class="navbar"><img src="<c:url value="/images/wherelogo.png"/>">
@@ -110,15 +124,14 @@
             <div class="centerWrapper"><br><br>
                 <div class="option">
                     <div>
-                        <form class="searchform cf" onsubmit="searchPlaces(); return false;">
-                            <input type="text" value="제로웨이스트샵" id="keyword" size="15">
+                            <form class="searchform cf" onsubmit="searchPlaces(); return false;">
+                            <input type="text" value="검색어를 입력하세요" id="keyword" size="15">
                             <button type="submit">SEARCH</button>
                         </form>
                     </div>
                 </div>
             </div>
             <br /><br />
-
             <div class="map-content">
                 <div class="map_wrap">
                     <div id="mapa" style="width:900px; height: 460px; position:relative; overflow:hidden;">
@@ -140,16 +153,17 @@
                 <div class="centerWrapper">
                     <div class="midList">
                         <h3 class="txt1">오늘의 실천해요!</h3><br>
-                        <form method="post" action="map">
-                            <input class="one" type="text" value="${user.todoText1}" placeholder="내용을 입력하세요">
-                            <input type="checkbox" name="todo1"  ${user.todo1 ? "checked" : ""}><br><br>
+                        <form method="post">
+                            <input class="one" type="text" name="todoText1" value="${user.todoText1}" placeholder="내용을 입력하세요">
+                            <input type="checkbox" name="todo1" ${user.todo1 ? "checked" : ""}><br><br>
 
-                            <input class="two" type="text" value="${user.todoText2}" placeholder="내용을 입력하세요">
-                            <input type="checkbox" name="todo1"   ${user.todo2 ? "checked" : ""}><br><br>
+                            <input class="two" type="text" name="todoText2" value="${user.todoText2}" placeholder="내용을 입력하세요">
+                            <input type="checkbox" name="todo2" ${user.todo2 ? "checked" : ""}><br><br>
 
-                            <input class="three" type="text" value="${user.todoText3}" placeholder="내용을 입력하세요">
-                            <input type="checkbox" name="todo1"  ${user.todo3 ? "checked" : ""}><br>
-                            <button type="submit">저장하기</button>
+                            <input class="three" type="text" name="todoText3" value="${user.todoText3}" placeholder="내용을 입력하세요">
+                            <input type="checkbox" name="todo3" ${user.todo3 ? "checked" : ""}><br>
+
+                            <input class="todook" type="submit" value="저장">
                         </form>
                     </div><br><br>
                     <div class="midVideo"></div>
@@ -175,10 +189,6 @@
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                         allowfullscreen></iframe></td>
                         </tr>
-
-<%--                        <tr>--%>
-<%--                            <td><img class="videoPlus" src="<c:url value="/images/plus.png"/>"> </td>--%>
-<%--                        </tr>--%>
                         </tbody>
                     </table>
                 </div>

@@ -1,6 +1,7 @@
 package com.whereeco.domain.user.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.whereeco.controller.dto.TodoDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -49,5 +50,14 @@ public class User {
 
     public void setPwd(String pwd) {
         this.pwd = pwd;
+    }
+
+    public void updateTodo(TodoDto todoDto) {
+        this.todoText1 = todoDto.getTodoText1();
+        this.todoText2 = todoDto.getTodoText2();
+        this.todoText3 = todoDto.getTodoText3();
+        this.todo1 = todoDto.isTodo1();
+        this.todo2 = todoDto.isTodo2();
+        this.todo3 = todoDto.isTodo3();
     }
 }

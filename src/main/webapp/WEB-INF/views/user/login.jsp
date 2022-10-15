@@ -70,7 +70,7 @@
 	<form:form method="post" modelAttribute="user">
 	<img src="<c:url value="/images/wherelogo.png"/>">
 	<div class="title"> ${ user.id > 0 ? "수정" : "등록" }</div>
-	<form>
+	<form method="post">
 		<table>
 			<tr>
 				<td><input type="text" placeholder="아이디" name="userId" value="${ user.userId }" />
