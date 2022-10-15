@@ -16,7 +16,7 @@ public class TodoScheduler {
     //@Scheduled(fixedDelay = 5000)	// 5초마다
     @Scheduled(cron = "0 0 0 * * ?")    // 매일 00시 정각
     public void todoTask() {
-        //userService.refreshAll();
+        userService.refreshAll();
         System.out.println("log: test");
     }
 }
