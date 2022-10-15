@@ -18,7 +18,8 @@ public class YoutubeUrlRestController {
 
     @GetMapping("/url/youtube")
     public ResponseEntity<Map<String, String>> getRandomUrl(){
-        return ResponseEntity.ok(youtubeUrlService.getRandomUrlMap(URL_COUNT));
+        String prefix = "";
+        return ResponseEntity.ok(youtubeUrlService.getRandomUrlMap(URL_COUNT, prefix));
     }
 
 

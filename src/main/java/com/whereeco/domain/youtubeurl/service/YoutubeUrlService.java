@@ -25,7 +25,7 @@ public class YoutubeUrlService {
      * "url1" , "http://youtube..."
      * "url2" , "http://youtube..." 형식임.
      */
-    public Map<String, String> getRandomUrlMap(int urlCount) {
+    public Map<String, String> getRandomUrlMap(int urlCount, String prefix) {
         List<YoutubeUrl> youtubeUrls = findAll();
 
         long seed = System.currentTimeMillis();
@@ -46,7 +46,7 @@ public class YoutubeUrlService {
         Map<String, String > returnMap = new HashMap<>();
 
         for (int i = 0; i<urlCount; i+=1){
-            returnMap.put("url" + (i+1), youtubeUrls.get(integerList.get(i)).getUrl());
+            returnMap.put("url" + (i+1), prefix+youtubeUrls.get(integerList.get(i)).getUrl());
         }
         return returnMap;
     }

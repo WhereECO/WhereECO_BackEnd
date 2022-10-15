@@ -3,6 +3,7 @@ package com.whereeco.controller;
 import com.whereeco.controller.dto.UserJoinDto;
 import com.whereeco.domain.user.entity.User;
 import com.whereeco.domain.user.service.UserService;
+import com.whereeco.domain.youtubeurl.service.YoutubeUrlService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,13 +13,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
@@ -27,6 +31,10 @@ public class UserController {
 
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
+    private final YoutubeUrlService youtubeUrlService;
+
+    private final int URL_COUNT = 3;
+    private final String URL_PREFIX = "https://www.youtube.com/embed/";
 
     @GetMapping("/list")
     public String list(Model model) {
@@ -90,7 +98,24 @@ public class UserController {
     }
 
     @GetMapping("/map")
-    public String map() {
+    public String map(Model model, HttpServletRequest request) {
+        String userId = (String) request.getSession().getAttribute("userId");
+        User user = userService.findByUserId(userId);
+        model.addAttribute("user", user); // TodoList 1, 2, 3
+
+        Map<String, String> randomUrl = youtubeUrlService.getRandomUrlMap(URL_COUNT, URL_PREFIX);
+        model.addAttribute("randomUrl", randomUrl);
+
         return "user/map";
+    }
+
+    @PostMapping ("/map")
+    public void map(@RequestParam(name = "todo1") String[] todo1 , HttpServletResponse response) throws IOException {
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println("<script>alert('" + todo1 + "');" + "</script>");
+        out.flush();
+
+        System.out.println(todo1);
     }
 }

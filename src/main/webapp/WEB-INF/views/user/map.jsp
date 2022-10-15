@@ -89,6 +89,7 @@
     </style>
 </head>
 <body>
+
 <div class="tool">
     <!-- 네브바랑 넘어가는 나뭇잎 이미지는 고정-->
     <div class="navbar"><img src="<c:url value="/images/wherelogo.png"/>">
@@ -139,15 +140,16 @@
                 <div class="centerWrapper">
                     <div class="midList">
                         <h3 class="txt1">오늘의 실천해요!</h3><br>
-                        <form>
-                            <input class="one" type="text" placeholder="내용을 입력하세요">
-                            <input type="checkbox" value="1"><br><br>
+                        <form method="post" action="map">
+                            <input class="one" type="text" value="${user.todoText1}" placeholder="내용을 입력하세요">
+                            <input type="checkbox" name="todo1"  ${user.todo1 ? "checked" : ""}><br><br>
 
-                            <input class="two" type="text" placeholder="내용을 입력하세요">
-                            <input type="checkbox" value="2"><br><br>
+                            <input class="two" type="text" value="${user.todoText2}" placeholder="내용을 입력하세요">
+                            <input type="checkbox" name="todo1"   ${user.todo2 ? "checked" : ""}><br><br>
 
-                            <input class="three" type="text" placeholder="내용을 입력하세요">
-                            <input type="checkbox" value="3"><br>
+                            <input class="three" type="text" value="${user.todoText3}" placeholder="내용을 입력하세요">
+                            <input type="checkbox" name="todo1"  ${user.todo3 ? "checked" : ""}><br>
+                            <button type="submit">저장하기</button>
                         </form>
                     </div><br><br>
                     <div class="midVideo"></div>
@@ -156,26 +158,27 @@
                     <table class="chart">
                         <tbody>
                         <tr>
-                            <td><iframe width="560" height="315" src="https://www.youtube.com/embed/rsd5seVp-9I"
+                            <td><iframe width="560" height="315" src="${randomUrl.url1}"
                                         title="YouTube video player" frameborder="0"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                         allowfullscreen></iframe></td>
                         </tr>
                         <tr>
-                            <td><iframe width="560" height="315" src="https://www.youtube.com/embed/nwbBpvss2sg"
+                            <td><iframe width="560" height="315" src="${randomUrl.url2}"
                                         title="YouTube video player" frameborder="0"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                         allowfullscreen></iframe></td>
                         </tr>
                         <tr>
-                            <td><iframe width="560" height="315" src="https://www.youtube.com/embed/eYS2eMGKeeg"
+                            <td><iframe width="560" height="315" src="${randomUrl.url3}"
                                         title="YouTube video player" frameborder="0"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                         allowfullscreen></iframe></td>
                         </tr>
-                        <tr>
-                            <td><img class="videoPlus" src="<c:url value="/images/plus.png"/>"> </td>
-                        </tr>
+
+<%--                        <tr>--%>
+<%--                            <td><img class="videoPlus" src="<c:url value="/images/plus.png"/>"> </td>--%>
+<%--                        </tr>--%>
                         </tbody>
                     </table>
                 </div>

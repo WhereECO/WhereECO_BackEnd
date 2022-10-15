@@ -29,9 +29,17 @@ public class User {
     @Column(nullable = false, length = 20)
     private String name;
 
+    @Column(nullable = true, length = 30)
+    private String todoText1;
+    @Column(nullable = true, length = 30)
+    private String todoText2;
+    @Column(nullable = true, length = 30)
+    private String todoText3;
+
     private boolean todo1;
     private boolean todo2;
     private boolean todo3;
+
 
     public User(String userId, String pwd, String name) {
         this.userId = userId;
