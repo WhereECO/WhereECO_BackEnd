@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -30,7 +31,7 @@ public class UserService {
     }
 
     public User findByUserId(String userId) {
-        return userRepository.findByUserId(userId).orElseThrow(() -> new IllegalArgumentException("잘못된 유저이름"));
+        return userRepository.findByUserId(userId);
     }
 
     @Transactional

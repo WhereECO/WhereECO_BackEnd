@@ -15,7 +15,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Modifying
     void refreshAll();
 
-    Optional<User> findByUserId(String userId);
+    User findByUserId(String userId);
 
 
     @Query("select u from User u where u.userId = :userId")

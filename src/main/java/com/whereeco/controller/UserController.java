@@ -1,5 +1,6 @@
 package com.whereeco.controller;
 
+import com.whereeco.controller.dto.LoginDto;
 import com.whereeco.controller.dto.TodoDto;
 import com.whereeco.controller.dto.UserJoinDto;
 import com.whereeco.domain.user.entity.User;
@@ -12,6 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,11 +23,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/user")
@@ -52,33 +58,46 @@ public class UserController {
     }
 
     @PostMapping("join")
-    public String create(HttpServletResponse response, UserJoinDto userJoinDto, Model model) throws IOException {
+    public void create(HttpServletResponse response, @Validated UserJoinDto userJoinDto,
+                       BindingResult bindingResult) throws IOException {
+
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
 
-        if( !userJoinDto.getPwd1().equals(userJoinDto.getPwd2())){
-            out.println("<script> alert('비밀번호 확인 불일치'); </script>");
+        if(bindingResult.hasErrors()){
+            out.println("<script> alert('올바른 값을 입력해주세요'); location.href='/user/join'; </script>");
             out.flush();
-            return "user/edit1";
+        }
+
+
+        if( !userJoinDto.getPwd1().equals(userJoinDto.getPwd2())){
+            out.println("<script> alert('비밀번호 확인 불일치'); location.href='/user/join'; </script>");
+            out.flush();
         }
 
         String securePassword = passwordEncoder.encode(userJoinDto.getPwd1());
         User user = new User(userJoinDto.getUserId(), securePassword, userJoinDto.getName());
         userService.save(user);
-        out.println("<script>alert('회원가입 성공, 로그인하세요');</script>");
+        out.println("<script>alert('회원가입 성공, 로그인하세요'); location.href='/user/join';</script>");
         out.flush();
-        return "redirect:login";
     }
 
     @PostMapping("/login")
-    public void login(HttpServletResponse response, HttpSession session, String userId, String pwd) throws Exception {
+    public void login(HttpServletResponse response, HttpSession session,
+                      LoginDto loginDto, BindingResult bindingResult) throws Exception {
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
 
-        User user = userService.findByUserId(userId);
+        if(bindingResult.hasErrors()){
+            out.println("<script> alert('올바른 값을 입력해주세요'); location.href='/user/login'; </script>");
+            out.flush();
+        }
+
+        User user= userService.findByUserId(loginDto.getUserId());
+
 
         if (user != null) {
-            if (passwordEncoder.matches(pwd, user.getPwd())) {
+            if (passwordEncoder.matches(loginDto.getPwd(), user.getPwd())) {
                 session.setMaxInactiveInterval(3000);
                 session.setAttribute("userId", user.getUserId());
 
@@ -89,7 +108,7 @@ public class UserController {
                 out.flush();
             }
         } else {
-            out.println("<script>alert('아이디 또는 비밀번호가 일치하지 않습니다. 회원가입을 진행해주세요.'); location.href='/user/join';</script>");
+            out.println("<script>alert('존재하지 않는 회원입니다. 회원가입을 진행해주세요.'); location.href='/user/join';</script>");
             out.flush();
         }
     }
