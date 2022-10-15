@@ -1,5 +1,6 @@
 package com.WhereECO.dto;
 
+
 public class Address {
     int id;
     float latitude;

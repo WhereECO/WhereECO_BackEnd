@@ -24,5 +24,4 @@ public interface AddressMapper {
     // 모두 가져오기
     @Select("SELECT * from address")
     List<Address> findAll();
-
 }
