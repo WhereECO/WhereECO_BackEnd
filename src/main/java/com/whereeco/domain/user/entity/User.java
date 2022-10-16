@@ -31,25 +31,20 @@ public class User {
     private String name;
 
     @Column(nullable = true, length = 30)
-    private String todoText1;
+    private String todoText1 = "텀블러는 챙겼나요?";
     @Column(nullable = true, length = 30)
-    private String todoText2;
+    private String todoText2 = "분리수거를 해요!";
     @Column(nullable = true, length = 30)
-    private String todoText3;
+    private String todoText3 = "대중교통을 이용해요!";
 
     private boolean todo1;
     private boolean todo2;
     private boolean todo3;
 
-
     public User(String userId, String pwd, String name) {
         this.userId = userId;
         this.pwd = pwd;
         this.name = name;
-    }
-
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
     }
 
     public void updateTodo(TodoDto todoDto) {
