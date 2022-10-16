@@ -22,7 +22,7 @@ parsingData();
 // js에서 동기, 비동기
 function parsingData() {
     var jsonData;
-    fetch('http://localhost:8088/addresses')
+    fetch('http://13.125.210.29/addresses')
         .then((response) => response.json())
         .then((data) => printMarker(data));
 }
