@@ -78,7 +78,7 @@ public class UserController {
         String securePassword = passwordEncoder.encode(userJoinDto.getPwd1());
         User user = new User(userJoinDto.getUserId(), securePassword, userJoinDto.getName());
         userService.save(user);
-        out.println("<script>alert('회원가입 성공, 로그인하세요'); location.href='/user/join';</script>");
+        out.println("<script>alert('회원가입 성공, 로그인하세요'); location.href='/user/login';</script>");
         out.flush();
     }
 
