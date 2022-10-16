@@ -23,6 +23,9 @@ public class YoutubeUrl {
     public YoutubeUrl(String url) {
         this.url = url;
     }
+
+    @Transient
+    public static final int URL_COUNT = 3;
 }
 
 

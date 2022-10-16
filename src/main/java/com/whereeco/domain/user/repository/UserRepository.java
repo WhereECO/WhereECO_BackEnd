@@ -1,5 +1,6 @@
 package com.whereeco.domain.user.repository;
 
+import com.whereeco.controller.api.dto.TodoCheckAndUrlDto;
 import com.whereeco.controller.dto.TodoDto;
 import com.whereeco.domain.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -27,4 +28,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Modifying
     void updateTodoByUserId(@Param("userId") String userId, @Param("todoDto") TodoDto todoDto);
 
+    @Query("update User u set u.todo1 =:#{#todoDto.todo1}, u.todo2 = :#{#todoDto.todo2} , u.todo3 = :#{#todoDto.todo3}" +
+            " where u.userId = :userId")
+    @Modifying
+    void updateTodoCheckByUserId(@Param("userId") String userId, @Param("todoDto") TodoCheckAndUrlDto todoCheckAndUrlDto);
 }

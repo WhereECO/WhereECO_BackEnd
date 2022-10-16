@@ -7,9 +7,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class TodoDto {
+public class TodoCheckAndUrlDto {
 
     private boolean todo1;
     private boolean todo2;
     private boolean todo3;
+    private String url1;
+    private String url2;
+    private String url3;
 }

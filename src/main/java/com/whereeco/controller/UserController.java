@@ -5,6 +5,7 @@ import com.whereeco.controller.dto.TodoDto;
 import com.whereeco.controller.dto.UserJoinDto;
 import com.whereeco.domain.user.entity.User;
 import com.whereeco.domain.user.service.UserService;
+import com.whereeco.domain.youtubeurl.entity.YoutubeUrl;
 import com.whereeco.domain.youtubeurl.service.YoutubeUrlService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,6 @@ public class UserController {
     private final PasswordEncoder passwordEncoder;
     private final YoutubeUrlService youtubeUrlService;
 
-    private final int URL_COUNT = 3;
     private final String URL_PREFIX = "https://www.youtube.com/embed/";
 
     @GetMapping("/list")
@@ -124,13 +124,13 @@ public class UserController {
         User user = userService.findByUserId(userId);
         model.addAttribute("user", user); // TodoList 1, 2, 3
 
-        Map<String, String> randomUrl = youtubeUrlService.getRandomUrlMap(URL_COUNT, URL_PREFIX);
+        Map<String, String> randomUrl = youtubeUrlService.getRandomUrlMap(YoutubeUrl.URL_COUNT, URL_PREFIX);
         model.addAttribute("randomUrl", randomUrl);
 
         return "user/map";
     }
 
-    @Transactional
+
     @PostMapping ("/map")
     public void map(TodoDto todoDto, HttpServletRequest request,HttpServletResponse response) throws IOException {
         // 세션 정보와 일치하는 유저를 가져옴

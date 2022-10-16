@@ -12,7 +12,7 @@ public class TokenDto {
     }
 
     @Getter @Builder
-    public static class Response{
+    public static class  Response{
         private String grantType;
         private String accessToken;
     }

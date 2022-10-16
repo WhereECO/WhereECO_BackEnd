@@ -16,7 +16,7 @@ import java.util.Date;
 @Slf4j
 public class TokenProvider {
 
-    private String accessTokenExpirationTime = "300000"; // 5분
+    private String accessTokenExpirationTime = "6000000"; // 100분
 
     private String tokenSecret = "NMA8JPctFuna59f5";
 
@@ -38,17 +38,6 @@ public class TokenProvider {
                 .setIssuedAt(new Date())        //  발급시간
                 .setExpiration(expirationTime)  //
                 .signWith(SignatureAlgorithm.HS512, tokenSecret)    // 시그니처를 만들 알고리즘과 시크릿키 값
-                .setHeaderParam("typ", "JWT")
-                .compact();
-    }
-
-    public String createRefreshToken(String email, Date expirationTime) {
-        return Jwts.builder()
-                .setSubject(TokenType.REFRESH.name())   //  토큰 제목 Refresh
-                .setAudience(email)                 //  토큰에 담을 개인정보(대상자)
-                .setIssuedAt(new Date())        //  발급시간
-                .setExpiration(expirationTime)  //  refreshToken 만료 시간
-                .signWith(SignatureAlgorithm.HS512, tokenSecret)
                 .setHeaderParam("typ", "JWT")
                 .compact();
     }
@@ -75,19 +64,6 @@ public class TokenProvider {
             return true;
         }
         return false;
-    }
-
-    public String getMemberEmail(String accessToken) {
-        String email;
-        try {
-            Claims claims = Jwts.parser().setSigningKey(tokenSecret)
-                    .parseClaimsJws(accessToken).getBody();
-            email = claims.getAudience();
-        } catch (Exception e){
-            e.printStackTrace();
-            throw new RuntimeException("getMemberEmail 예외");
-        }
-        return email;
     }
 
     public boolean validateToken(String token) {
