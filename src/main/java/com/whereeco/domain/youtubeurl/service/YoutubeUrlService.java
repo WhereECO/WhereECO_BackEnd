@@ -30,7 +30,7 @@ public class YoutubeUrlService {
 
         long seed = System.currentTimeMillis();
         Random rand = new Random(seed);
-        HashSet<Integer> set = new HashSet<>();
+        Set<Integer> set = new HashSet<>();
 
         // 난수 중복 제거를 위한 set 사용
         while (set.size() < urlCount){
