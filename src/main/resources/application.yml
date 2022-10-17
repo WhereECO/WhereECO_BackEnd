@@ -19,7 +19,6 @@ spring:
     password: ${password}
     #driver-class-name: org.mariadb.jdbc.Driver  # rds 환경에서 사용하지 않음
 
-
   jpa:
     hibernate:
       ddl-auto: none
