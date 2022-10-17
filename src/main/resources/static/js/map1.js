@@ -4,25 +4,25 @@ var markers = [];
 var mapContainer = document.getElementById('mapa'), // 지도를 표시할 div
     mapOption = {
         center: new kakao.maps.LatLng(37.5026383, 127.0229664), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
+        level: 9 // 지도의 확대 레벨
     };
 
 // 지도를 생성합니다
 var kamap = new kakao.maps.Map(mapContainer, mapOption);
 // 장소 검색 객체를 생성합니다
+
 var ps = new kakao.maps.services.Places();
 // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
 var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
 // 키워드로 장소를 검색합니다
 searchPlaces();
-
 // api로 데이터를 파싱합니다
 parsingData();
 
 // js에서 동기, 비동기
 function parsingData() {
     var jsonData;
-    fetch('http://13.125.210.29/addresses')
+    fetch('http://localhost:8080/addresses')
         .then((response) => response.json())
         .then((data) => printMarker(data));
 }
@@ -34,7 +34,6 @@ function printMarker(jsonData) {
         zeroMarker(position, i, jsonData[i].name);
     }
 }
-
 // 제로웨이스트샵 마크 수정
 function zeroMarker(position, idx, title) {
     var imageSrc = "/images/heartmarker.png", // 마커 이미지 url
@@ -55,7 +54,6 @@ function zeroMarker(position, idx, title) {
 
     return marker;
 }
-
 // 키워드 검색을 요청하는 함수입니다
 function searchPlaces() {
     var keyword = document.getElementById('keyword').value;
@@ -79,7 +77,7 @@ function placesSearchCB(data, status, pagination) {
         // 페이지 번호를 표출합니다
         displayPagination(pagination);
 
-    } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+    } else if (status === kakao.maps.services.Status.ERROR) {
 
         alert('검색 결과가 존재하지 않습니다.');
         return;
@@ -92,7 +90,7 @@ function placesSearchCB(data, status, pagination) {
     }
 }
 
-// 검색 결과 목록과 마커를 표출하는 함수입니다
+/// 검색 결과 목록과 마커를 표출하는 함수입니다
 function displayPlaces(places) {
 
     var listEl = document.getElementById('placesList'),
