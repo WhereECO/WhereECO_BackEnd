@@ -58,7 +58,7 @@ public class UserController {
     }
 
     @PostMapping("join")
-    public void create(HttpServletResponse response, @Valid UserJoinDto userJoinDto,
+    public boolean create(HttpServletResponse response, @Valid UserJoinDto userJoinDto,
                        BindingResult bindingResult) throws IOException {
 
         response.setContentType("text/html; charset=UTF-8");
@@ -67,12 +67,14 @@ public class UserController {
         if(bindingResult.hasErrors()){
             out.println("<script> alert('올바른 값을 입력해주세요'); location.href='/user/join'; </script>");
             out.flush();
+            return false;
         }
 
 
         if( !userJoinDto.getPwd1().equals(userJoinDto.getPwd2())){
             out.println("<script> alert('비밀번호 확인 불일치'); location.href='/user/join'; </script>");
             out.flush();
+            return false;
         }
 
         String securePassword = passwordEncoder.encode(userJoinDto.getPwd1());
@@ -80,10 +82,11 @@ public class UserController {
         userService.save(user);
         out.println("<script>alert('회원가입 성공, 로그인하세요'); location.href='/user/login';</script>");
         out.flush();
+        return false;
     }
 
     @PostMapping("/login")
-    public void login(HttpServletResponse response, HttpSession session,
+    public boolean login(HttpServletResponse response, HttpSession session,
                       @Valid LoginDto loginDto, BindingResult bindingResult) throws Exception {
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
@@ -91,6 +94,7 @@ public class UserController {
         if(bindingResult.hasErrors()){
             out.println("<script> alert('올바른 값을 입력해주세요'); location.href='/user/login'; </script>");
             out.flush();
+            return false;
         }
 
         User user= userService.findByUserId(loginDto.getUserId());
@@ -103,13 +107,16 @@ public class UserController {
 
                 out.println("<script>alert('login 성공'); location.href='/user/map';</script>");
                 out.flush();
+                return false;
             } else {
                 out.println("<script>alert('아이디 또는 비밀번호가 일치하지 않습니다.'); location.href='/user/login';</script>");
                 out.flush();
+                return false;
             }
         } else {
             out.println("<script>alert('존재하지 않는 회원입니다. 회원가입을 진행해주세요.'); location.href='/user/join';</script>");
             out.flush();
+            return false;
         }
     }
 

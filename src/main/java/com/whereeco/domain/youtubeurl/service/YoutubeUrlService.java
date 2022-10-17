@@ -27,11 +27,9 @@ public class YoutubeUrlService {
      */
     public Map<String, String> getRandomUrlMap(int urlCount, String prefix) {
         List<YoutubeUrl> youtubeUrls = findAll();
-
         long seed = System.currentTimeMillis();
         Random rand = new Random(seed);
         Set<Integer> set = new HashSet<>();
-
         // 난수 중복 제거를 위한 set 사용
         while (set.size() < urlCount){
             /**
@@ -41,6 +39,7 @@ public class YoutubeUrlService {
              */
             set.add(rand.nextInt(youtubeUrls.size()));
         }
+
         List<Integer> integerList= new ArrayList<>(set);
 
         Map<String, String > returnMap = new HashMap<>();
