@@ -22,7 +22,7 @@ parsingData();
 // js에서 동기, 비동기
 function parsingData() {
     var jsonData;
-    fetch('http://localhost:8080/addresses')
+    fetch('https://www.whereeco.shop/addresses')
         .then((response) => response.json())
         .then((data) => printMarker(data));
 }
