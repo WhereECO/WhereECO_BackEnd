@@ -103,6 +103,7 @@
         }
     </style>
 </head>
+
 <body>
 <div class="tool">
     <!-- 네브바랑 넘어가는 나뭇잎 이미지는 고정-->
@@ -140,10 +141,7 @@
                         <ul id="placesList"></ul>
                         <div id="pagination"></div>
                     </div>
-                    <script type="text/javascript"
-                            src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=61eb4642306869b42c83d9bc71a5c1ba&libraries=services"></script>
-                    <script rel="script" type="text/javascript" src="/js/map1.js"></script>
-                    <!-- 지도 js -->
+
                 </div>
             </div>
         </div>
@@ -197,5 +195,9 @@
     </div>
 </div>
 <script rel="script" type="text/javascript" src="/js/todo.js"></script>
+<script type="text/javascript"
+        src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=61eb4642306869b42c83d9bc71a5c1ba&libraries=services"></script>
+<script rel="script" type="text/javascript" src="/js/map1.js"></script>
+<!-- 지도 js -->
 </body>
 </html>
