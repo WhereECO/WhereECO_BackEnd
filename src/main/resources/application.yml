@@ -12,7 +12,7 @@ spring:
       matching-strategy: ant_path_matcher
 
   datasource:
-    #
+    ##
     #url: jdbc:mariadb://localhost:3306/whereecojpa?useUnicode=yes&characterEncoding=UTF-8&allowMultiQueries=true&serverTimezone=Asia/Seoul
     url: jdbc:mariadb://whereechodb-maria.c9meh9rc5ju2.ap-northeast-2.rds.amazonaws.com:3306/whereeco?serverTimezone=Asia/Seoul
     username: ${username}
