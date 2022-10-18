@@ -17,10 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,10 +26,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping("/user")
@@ -118,21 +112,16 @@ public class UserController {
 
 
     @PostMapping ("/map")
-    public void map(TodoDto todoDto, HttpServletRequest request,HttpServletResponse response) throws IOException {
+    @ResponseBody
+    public Map<String, String > map(TodoDto todoDto, HttpServletRequest request, HttpServletResponse response) {
         // 세션 정보와 일치하는 유저를 가져옴
         String userId = (String) request.getSession().getAttribute("userId");
 
-
-
-        // 유저를 Persistence Context에 올림
         userService.updateTodoByUserId(userId, todoDto);
 
-        response.setContentType("text/html; charset=UTF-8");
-        PrintWriter out = response.getWriter();
-
-
-        out.println("<script>alert('저장 완료'); location.href='/user/map';</script>");
-        out.flush();
+        Map<String, String> returnMap = new HashMap<>();
+        returnMap.put("status", "OK");
+        return returnMap;
         // return "redirect:map"; // sendRedirect() 보낼 수 없음
     }
 

@@ -151,17 +151,18 @@
                 <div class="centerWrapper">
                     <div class="midList">
                         <h3 class="txt1">오늘의 실천해요!</h3><br>
-                        <form method="post">
+
+                        <form id="form" method="post">
                             <input class="one" type="text" name="todoText1" value="${user.todoText1}" placeholder="내용을 입력하세요">
-                            <input type="checkbox" name="todo1" ${user.todo1 ? "checked" : ""}><br><br>
+                            <input id="checkbox1" type="checkbox" name="todo1" ${user.todo1 ? "checked" : ""} value="on"><br><br>
 
                             <input class="two" type="text" name="todoText2" value="${user.todoText2}" placeholder="내용을 입력하세요">
-                            <input type="checkbox" name="todo2" ${user.todo2 ? "checked" : ""}><br><br>
+                            <input id="checkbox2" type="checkbox" name="todo2" ${user.todo2 ? "checked" : ""} value="on"><br><br>
 
                             <input class="three" type="text" name="todoText3" value="${user.todoText3}" placeholder="내용을 입력하세요">
-                            <input type="checkbox" name="todo3" ${user.todo3 ? "checked" : ""}><br>
+                            <input id="checkbox3" type="checkbox" name="todo3" ${user.todo3 ? "checked" : ""} value="on"><br>
 
-                            <input class="todook" type="submit" value="저장">
+                            <button id="submit" class="todook" type="button" value="저장">저장</button>
                         </form>
                     </div><br><br>
                     <div class="midVideo"></div>
@@ -194,10 +195,13 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script rel="script" type="text/javascript" src="/js/todo.js"></script>
 <script type="text/javascript"
         src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=61eb4642306869b42c83d9bc71a5c1ba&libraries=services"></script>
 <script rel="script" type="text/javascript" src="/js/map1.js"></script>
+<script rel="script" type="text/javascript" src="/js/todoUpdate.js"></script>
+
 <!-- 지도 js -->
 </body>
 </html>
