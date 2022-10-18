@@ -68,7 +68,7 @@ public class UserController {
         String securePassword = passwordEncoder.encode(userJoinDto.getPwd1());
         User user = new User(userJoinDto.getUserId(), securePassword, userJoinDto.getName());
         userService.save(user);
-        return "redirect:user/edit1";
+        return "redirect:login";
     }
 
     @PostMapping("/login")
