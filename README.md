@@ -3,7 +3,7 @@
 ## 개발환경
 
 - DB: MariaDB
-- Spring Boot 2.6.x
+- Spring Boot 2.7.4
 - build tool : gradle
 - JDK 11
 - Spring Data JPA
