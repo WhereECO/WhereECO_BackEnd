@@ -1,0 +1,11 @@
+.form-control fieldError {
+    border-color: #bd2130;
+}
+.form-control{
+    border-color: #bd9999;
+}
+.red{
+    /*color: #005cbf;*/
+    color: #bd2130;
+    font-weight: bold;
+}

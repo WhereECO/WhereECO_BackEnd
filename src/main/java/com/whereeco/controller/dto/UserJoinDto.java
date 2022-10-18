@@ -13,15 +13,16 @@ import javax.validation.constraints.NotBlank;
 @Getter @Setter
 public class UserJoinDto {
 
-    @NotBlank
+    @NotBlank(message = "ID를 입력해 주세요")
     private String userId;
 
-    @NotBlank
+    @NotBlank(message = "이름을 입력해 주세요")
     private String name;
 
-    @NotBlank
+    @NotBlank(message = "비밀번호를 입력해 주세요")
     private String pwd1;
 
-    @NotBlank
+    @NotBlank(message = "비밀번호 확인을 입력해 주세요")
     private String pwd2;
+
 }

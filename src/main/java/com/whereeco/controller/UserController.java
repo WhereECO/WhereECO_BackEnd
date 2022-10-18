@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,66 +59,44 @@ public class UserController {
     }
 
     @PostMapping("join")
-    public boolean create(HttpServletResponse response, @Valid UserJoinDto userJoinDto,
-                       BindingResult bindingResult) throws IOException {
-
-        response.setContentType("text/html; charset=UTF-8");
-        PrintWriter out = response.getWriter();
+    public String create(@Valid UserJoinDto userJoinDto,
+                       BindingResult bindingResult, Model model) {
 
         if(bindingResult.hasErrors()){
-            out.println("<script> alert('올바른 값을 입력해주세요'); location.href='/user/join'; </script>");
-            out.flush();
-            return false;
+            return "user/edit1";
         }
 
-
         if( !userJoinDto.getPwd1().equals(userJoinDto.getPwd2())){
-            out.println("<script> alert('비밀번호 확인 불일치'); location.href='/user/join'; </script>");
-            out.flush();
-            return false;
+            model.addAttribute("pwdNoMatch", true);
+            return "user/edit1";
         }
 
         String securePassword = passwordEncoder.encode(userJoinDto.getPwd1());
         User user = new User(userJoinDto.getUserId(), securePassword, userJoinDto.getName());
         userService.save(user);
-        out.println("<script>alert('회원가입 성공, 로그인하세요'); location.href='/user/login';</script>");
-        out.flush();
-        return false;
+        return "redirect:user/edit1";
     }
 
     @PostMapping("/login")
-    public boolean login(HttpServletResponse response, HttpSession session,
-                      @Valid LoginDto loginDto, BindingResult bindingResult) throws Exception {
-        response.setContentType("text/html; charset=UTF-8");
-        PrintWriter out = response.getWriter();
+    public String  login(HttpSession session,
+                      @Valid LoginDto loginDto, BindingResult bindingResult, Model model) {
 
         if(bindingResult.hasErrors()){
-            out.println("<script> alert('올바른 값을 입력해주세요'); location.href='/user/login'; </script>");
-            out.flush();
-            return false;
+            return "user/login";
         }
-
         User user= userService.findByUserId(loginDto.getUserId());
-
 
         if (user != null) {
             if (passwordEncoder.matches(loginDto.getPwd(), user.getPwd())) {
                 session.setMaxInactiveInterval(3000);
                 session.setAttribute("userId", user.getUserId());
-
-                out.println("<script>alert('login 성공'); location.href='/user/map';</script>");
-                out.flush();
-                return false;
-            } else {
-                out.println("<script>alert('아이디 또는 비밀번호가 일치하지 않습니다.'); location.href='/user/login';</script>");
-                out.flush();
-                return false;
+                return "redirect:user/map";
             }
-        } else {
-            out.println("<script>alert('존재하지 않는 회원입니다. 회원가입을 진행해주세요.'); location.href='/user/join';</script>");
-            out.flush();
-            return false;
+            model.addAttribute("noMatchUserIdAndPwd", true);
+            return "user/login";
         }
+        model.addAttribute("noMatchUserIdAndPwd", true);
+        return "user/login";
     }
 
     @GetMapping("/login")
