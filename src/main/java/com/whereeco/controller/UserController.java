@@ -90,7 +90,7 @@ public class UserController {
             if (passwordEncoder.matches(loginDto.getPwd(), user.getPwd())) {
                 session.setMaxInactiveInterval(3000);
                 session.setAttribute("userId", user.getUserId());
-                return "redirect:user/map";
+                return "redirect:map";
             }
             model.addAttribute("noMatchUserIdAndPwd", true);
             return "user/login";
